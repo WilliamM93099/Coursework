@@ -1,5 +1,6 @@
 package controllers;
 
+import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import server.Main;
@@ -33,6 +34,31 @@ public class Characters {
             System.out.println("Database error: " + exception.getMessage());
             return "{\"Error\": \"Unable to list items.  Error code xx.\"}";
         }
+    }
+    @POST
+    @Path("add")
+    public String CharacterAdd(@FormDataParam("CharacterID") Integer CharacterID, @FormDataParam("CharacterName") String CharacterName, @FormDataParam("Health") Integer Health, @FormDataParam("DPS") Integer DPS, @FormDataParam("Speed") Integer Speed, @FormDataParam("Difficulty") Integer Difficulty, @FormDataParam("AverageCooldown") Double AverageCooldown, @FormDataParam("WinRate") Integer Winrate, @FormDataParam("Class") Character Class, @FormDataParam("RotationStatus") Boolean RotationStatus) {
+        System.out.println("Invoked Characters.CharacterAdd()");
+        try {
+            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Characters (CharacterID, CharacterName, Health, DPS, Speed, Difficulty, AverageCooldown, Winrate, Class, RotationStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            ps.setInt(1, CharacterID);
+            ps.setString(2, CharacterName);
+            ps.setInt(3, Health);
+            ps.setInt(4, DPS);
+            ps.setInt(5, Speed);
+            ps.setInt(6, Difficulty);
+            ps.setDouble(7, AverageCooldown);
+            ps.setInt(8, Winrate);
+            ps.setInt(9, Class);
+            ps.setBoolean(10, RotationStatus);
+
+            ps.execute();
+            return "{\"OK\": \"Added Character.\"}";
+        } catch (Exception exception) {
+            System.out.println("Database error: " + exception.getMessage());
+            return "{\"Error\": \"Unable to create new item, please see server console for more info.\"}";
+        }
+
     }
 }
 
