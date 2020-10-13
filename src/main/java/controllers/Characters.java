@@ -37,7 +37,7 @@ public class Characters {
     }
     @POST
     @Path("add")
-    public String CharacterAdd(@FormDataParam("CharacterID") Integer CharacterID, @FormDataParam("CharacterName") String CharacterName, @FormDataParam("Health") Integer Health, @FormDataParam("DPS") Integer DPS, @FormDataParam("Speed") Integer Speed, @FormDataParam("Difficulty") Integer Difficulty, @FormDataParam("AverageCooldown") Double AverageCooldown, @FormDataParam("WinRate") Integer Winrate, @FormDataParam("Class") Character Class, @FormDataParam("RotationStatus") Boolean RotationStatus) {
+    public String CharacterAdd(@FormDataParam("CharacterID") Integer CharacterID, @FormDataParam("CharacterName") String CharacterName, @FormDataParam("Health") Integer Health, @FormDataParam("DPS") Integer DPS, @FormDataParam("Speed") Integer Speed, @FormDataParam("Difficulty") Integer Difficulty, @FormDataParam("AverageCooldown") Double AverageCooldown, @FormDataParam("Winrate") Integer Winrate, @FormDataParam("Class") Character Class, @FormDataParam("RotationStatus") Boolean RotationStatus) {
         System.out.println("Invoked Characters.CharacterAdd()");
         try {
             PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Characters (CharacterID, CharacterName, Health, DPS, Speed, Difficulty, AverageCooldown, Winrate, Class, RotationStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
