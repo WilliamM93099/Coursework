@@ -7,6 +7,10 @@ import server.Main;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javWhat are the usage limits of Colab?
+Colab is able to provide free resources in part by having dynamic usage limits that sometimes fluctuate, and by not providing guaranteed or unlimited resources. This means that overall usage limits as well as idle timeout periods, maximum VM lifetime, GPU types available, and other factors vary over time. Colab does not publish these limits, in part because they can (and sometimes do) vary quickly.
+
+GPUs and TPUs are sometimes prioritized for users who use Colab interactively rather than for long-running computations, or for users who have recently used less resources in Colab. As a result, users who use Colab for long-running computations, or users who have recently used more resources in Colab, are more likely to run into usage limits and have their access to GPUs and TPUs temporarily restricted. Users with high computational needs may be interested in using Colab’s UI with a local runtime running on their own hardware. Users interested in having higher and more stable usage limits may be interested in Colab Pro.a.sql.PreparedStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -44,7 +48,7 @@ public class Accounts{
         try {
             PreparedStatement ps = Main.db.prepareStatement("SELECT UserName FROM Accounts WHERE AccountID = ?");
             ps.setInt(1, AccountID);
-            ResultSet results = ps.executeQuery();
+            ResultSet results = ((PreparedStatement) ps).executeQuery();
             JSONObject response = new JSONObject();
             if (results.next()== true) {
                 response.put("AccountID", AccountID);
