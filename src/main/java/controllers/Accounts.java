@@ -15,7 +15,7 @@ import java.util.UUID;
 @Consumes(MediaType.MULTIPART_FORM_DATA)
 @Produces(MediaType.APPLICATION_JSON)
 
-public class Accounts{
+public class  Accounts{
     @GET
     @Path("list")
     public String AccountsList() {
