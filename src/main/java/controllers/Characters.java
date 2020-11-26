@@ -60,5 +60,24 @@ public class Characters {
         }
 
     }
+    @GET
+    @Path("Rotation")
+    public String CharactersRotation() {
+        System.out.println("Invoked Characters.CharactersRotation()");
+        JSONArray response = new JSONArray();
+        try {
+            PreparedStatement ps = Main.db.prepareStatement("SELECT CharacterName FROM Characters Where RotationStatus == True");
+            ResultSet results = ps.executeQuery();
+            while (results.next() == true) {
+                JSONObject row = new JSONObject();
+                row.put("CharacterName", results.getString(1));
+                response.add(row);
+            }
+            return response.toString();
+        } catch (Exception exception) {
+            System.out.println("Database error: " + exception.getMessage());
+            return "{\"Error\": \"Unable to list items.  Error code xx.\"}";
+        }
+    }
 }
 
