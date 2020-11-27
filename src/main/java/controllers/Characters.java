@@ -79,5 +79,33 @@ public class Characters {
             return "{\"Error\": \"Unable to list items.  Error code xx.\"}";
         }
     }
+    @GET
+    @Path("listAll")
+    public String CharactersListAll() {
+        System.out.println("Invoked Accounts.CharactersListAll()");
+        JSONArray response = new JSONArray();
+        try {
+            PreparedStatement ps = Main.db.prepareStatement("SELECT CharacterID, CharacterName, Health, Dps, Speed, Difficulty, AverageCooldown, Winrate, Class FROM Characters");
+            ResultSet results = ps.executeQuery();
+            while (results.next() == true) {
+                JSONObject row = new JSONObject();
+                row.put("CharacterID", results.getInt(1));
+                row.put("CharacterName", results.getString(2));
+                row.put("Health", results.getInt(3));
+                row.put("Dps", results.getInt(4));
+                row.put("Speed", results.getInt(5));
+                row.put("Difficulty", results.getInt(6));
+                row.put("AverageCooldown", results.getDouble(7));
+                row.put("Winrate", results.getDouble(8));
+                row.put("Class", results.getCharacterStream(9));
+                response.add(row);
+            }
+            return response.toString();
+        } catch (Exception exception) {
+            System.out.println("Database error: " + exception.getMessage());
+            return "{\"Error\": \"Unable to list items.  Error code xx.\"}";
+        }
+    }
+
 }
 
